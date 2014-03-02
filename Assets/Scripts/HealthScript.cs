@@ -20,11 +20,13 @@ public class HealthScript : MonoBehaviour
 
 	public void Damage (int damageCount)
 	{
-			HealthPoints -= damageCount;
+		HealthPoints -= damageCount;
 
-			if (HealthPoints <= 0) {
-				Destroy (gameObject);
-			}
+		Debug.Log (string.Format ("{0} health: {1}", gameObject.name, HealthPoints));
+
+		if (HealthPoints <= 0) {
+			Destroy (gameObject);
+		}
 	}
 
 	void OnTriggerEnter2D (Collider2D otherCollider)

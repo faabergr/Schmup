@@ -19,8 +19,6 @@ public class PlayerScript : MonoBehaviour {
 
 		_movement = new Vector2(inputX * Speed.x, inputY * Speed.y);
 
-		Debug.Log (string.Format ("Update movement: x: {0}, y: {1}", _movement.x, _movement.y));
-
 		bool shoot = Input.GetButtonDown ("Fire1");
 		shoot |= Input.GetButtonDown ("Fire2");
 
@@ -33,7 +31,17 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Debug.Log (string.Format ("Fixed Update movement: x: {0}, y: {1}", _movement.x, _movement.y));
 		rigidbody2D.velocity = _movement;
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript> ();
+		if (enemy != null) {
+			HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
+			if (enemyHealth != null) enemyHealth.Damage(enemyHealth.HealthPoints);
+
+			HealthScript playerHealth = this.GetComponent<HealthScript>();
+			if (playerHealth != null) playerHealth.Damage(enemy.CollisionDamage);
+		}
 	}
 }

@@ -9,6 +9,7 @@ public class WeaponScript : MonoBehaviour {
 	{
 		get { return shootCooldown <= 0f; }
 	}
+	public AudioClip ShootSound;
 
 	private float shootCooldown;
 
@@ -26,26 +27,24 @@ public class WeaponScript : MonoBehaviour {
 
 	public void Attack(bool isEnemy) {
 		if (CanAttack) {
-						Debug.Log ("Can attack!");
-						shootCooldown = ShootingRate;
+			shootCooldown = ShootingRate;
 
-						var shotTransform = Instantiate (ShotPrefab) as Transform;
-						shotTransform.position = transform.position;
+			if (ShootSound != null) {
+				audio.PlayOneShot(ShootSound);
+			}
 
-						ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript> ();
-						if (shot != null) {
-				Debug.Log("shot hooray");
-								shot.IsEnemyShot = isEnemy;
-						}
+			var shotTransform = Instantiate (ShotPrefab) as Transform;
+			shotTransform.position = transform.position;
 
-						MoveScript move = shotTransform.gameObject.GetComponent<MoveScript> ();
-						if (move != null) {
-				Debug.Log("move hooray");
-				
-								move.Direction = this.transform.right;
-						}
-				} else {
-			Debug.Log ("can't attack");
-				}
+			ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript> ();
+			if (shot != null) {
+					shot.IsEnemyShot = isEnemy;
+			}
+
+			MoveScript move = shotTransform.gameObject.GetComponent<MoveScript> ();
+			if (move != null) {
+				move.Direction = this.transform.right;
+			}
+		}
 	}
 }

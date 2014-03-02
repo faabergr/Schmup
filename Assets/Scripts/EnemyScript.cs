@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class EnemyScript : MonoBehaviour {
+	public int CollisionDamage = 1; // How much to damage the player after collision
 
 	private WeaponScript[] _weapons;
 
@@ -21,5 +22,9 @@ public class EnemyScript : MonoBehaviour {
 				weapon.Attack (true);
 			}
 		}
+	}
+
+	void OnBecameInvisible() {
+		Destroy (gameObject);
 	}
 }
