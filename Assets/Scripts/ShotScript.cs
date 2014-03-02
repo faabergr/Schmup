@@ -17,6 +17,6 @@ public class ShotScript : MonoBehaviour {
 	}
 
 	void OnBecameInvisible() {
-		Destroy (gameObject);
+		//Destroy (gameObject);
 	}
 }

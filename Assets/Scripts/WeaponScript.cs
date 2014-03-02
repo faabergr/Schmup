@@ -26,24 +26,26 @@ public class WeaponScript : MonoBehaviour {
 
 	public void Attack(bool isEnemy) {
 		if (CanAttack) {
-			shootCooldown = ShootingRate;
+						Debug.Log ("Can attack!");
+						shootCooldown = ShootingRate;
 
-			Vector3 playerSize = renderer.bounds.size;
+						var shotTransform = Instantiate (ShotPrefab) as Transform;
+						shotTransform.position = transform.position;
 
-			var shotTransform = Instantiate(ShotPrefab) as Transform;
-			shotTransform.position = new Vector3(gameObject.transform.position.x + (playerSize.x / 2.0f), 
-			                                     transform.position.y, 
-			                                     transform.position.z);
+						ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript> ();
+						if (shot != null) {
+				Debug.Log("shot hooray");
+								shot.IsEnemyShot = isEnemy;
+						}
 
-			ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
-			if (shot != null) {
-				shot.IsEnemyShot = isEnemy;
-			}
-
-			MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
-			if (move != null) {
-				move.Direction = this.transform.right;
-			}
-		}
+						MoveScript move = shotTransform.gameObject.GetComponent<MoveScript> ();
+						if (move != null) {
+				Debug.Log("move hooray");
+				
+								move.Direction = this.transform.right;
+						}
+				} else {
+			Debug.Log ("can't attack");
+				}
 	}
 }

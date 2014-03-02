@@ -23,7 +23,7 @@ public class HealthScript : MonoBehaviour
 			HealthPoints -= damageCount;
 
 			if (HealthPoints <= 0) {
-					Destroy (gameObject);
+				Destroy (gameObject);
 			}
 	}
 
@@ -31,10 +31,12 @@ public class HealthScript : MonoBehaviour
 	{
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript> ();
 		if (shot != null) {
-			Damage (shot.Damage);
-			 
-			// Destroy the shot
-			Destroy (shot.gameObject);
+			if (shot.IsEnemyShot != IsEnemy) {
+				Damage (shot.Damage);
+				 
+				// Destroy the shot
+				Destroy (shot.gameObject);
+			}
 		}
 	}
 }
