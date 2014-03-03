@@ -5,6 +5,7 @@ public class HealthScript : MonoBehaviour
 {
 	public int HealthPoints = 1;
 	public bool IsEnemy = true;
+    public AudioClip DeathSound;
 
 	// Use this for initialization
 	void Start ()
@@ -26,6 +27,7 @@ public class HealthScript : MonoBehaviour
 
 		if (HealthPoints <= 0) {
 			Destroy (gameObject);
+            if (gameObject.audio != null) gameObject.audio.PlayOneShot(DeathSound);
 		}
 	}
 
