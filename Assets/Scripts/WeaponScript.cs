@@ -5,6 +5,8 @@ public class WeaponScript : MonoBehaviour {
 
 	public Transform ShotPrefab;
 	public float ShootingRate = 0.25f;
+	public Vector2 BulletSpeed = new Vector2 (15, 10);
+
 	public bool CanAttack
 	{
 		get { return shootCooldown <= 0f; }
@@ -44,6 +46,7 @@ public class WeaponScript : MonoBehaviour {
 			MoveScript move = shotTransform.gameObject.GetComponent<MoveScript> ();
 			if (move != null) {
 				move.Direction = this.transform.right;
+				move.Speed = BulletSpeed;
 			}
 		}
 	}
